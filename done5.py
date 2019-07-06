@@ -2,6 +2,7 @@
 #教室前课表
 import numpy as np
 import pandas as pd
+import os
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.styles import PatternFill,Border,Side,Alignment,Protection,Font
@@ -45,7 +46,7 @@ def time_sort_index(time_col):
 #处理字符串
 def handle_str(teacher,kind_class, class_room):
 	teacher = teacher.str.replace('[0-9]\d*$','')#删掉教师后的数字
-	kind_class = kind_class.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')#删掉培训班三个字
+	# ~ kind_class = kind_class.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')#删掉培训班三个字
 	kind_class = kind_class.str.replace('分级阅读','分级阅读双师')#删掉培训班三个字
 	class_room = class_room.str.replace('4*[\u4e00-\u9fa5]|[(].*?[)]|[【].*?[】]','')#只保留教室号
 	return teacher, kind_class, class_room
@@ -58,6 +59,7 @@ def ceshi(data):
 
 def wash_data(filename):
 	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,14,17,18,22])#读取表
+	
 	timelist = time_sort_index(data['上课时间'])#上课时间为index
 	choose = data.iloc[1,0]
 	
@@ -65,8 +67,8 @@ def wash_data(filename):
 	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','辅导:',regex=True)#删掉数字后只剩名字，名字全部替换成辅导
 	data.辅导老师 = data_fudao2 + data_fudao #辅导+老师名字
 	
-	finish_excel = data.loc[2,'教学点']+'__'+'过度表(没用).xlsx'#获取保存的过渡文件名 
-	in_excel = data.loc[2,'教学点']+'__'+'教室门前课表.xlsx'#获取最终文件名，并传递出去
+	finish_excel = '过度表(没用).xlsx'#获取保存的过渡文件名 #finish_excel = data.loc[2,'教学点']+'__'+'过度表(没用).xlsx'
+	in_excel = data.loc[2,'教学点']+'__'+data.loc[2,'学期']+'__'+'教室门前课表.xlsx'#获取最终文件名，并传递出去
 	
 	data.教师,data.班次,data.教室 = handle_str(data.教师, data.班次, data.教室)#处理列里字符
 	classroomlist = sorted(list(set(data.教室)))#教室号为sheet_name
@@ -135,6 +137,7 @@ def wash_data2(put_excel,in_excel,classroomlist,sizeA):
 def final_fuc(filename, sizeA):
 	classroomlist,put_excel,in_excel = wash_data(filename)
 	wash_data2(put_excel,in_excel,classroomlist,sizeA)
+	os.remove('过度表(没用).xlsx')
 	return in_excel
 
 
