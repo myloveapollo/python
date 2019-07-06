@@ -1,6 +1,6 @@
-#-*-coding:GBK -*- 
-#Ç°Ì¨¿Î±í
-import numpy as np#µ¼ÈënumpÊı¾İÄ£¿é
+ï»¿#-*-coding:GBK -*- 
+#å‰å°è¯¾è¡¨
+import numpy as np#å¯¼å…¥numpæ•°æ®æ¨¡å—
 import pandas as pd
 import datetime
 from openpyxl import Workbook
@@ -13,19 +13,19 @@ def cell_style0(ws0,len_index0,week0,names):
 	width_dict={'A':6.7,'B':11,'C':5,'D':20,'E':16,'F':15,'G':11,'H':11,'I':21,'J':7.5,'K':5}
 	thin = Side(border_style='thin',color='00000000')
 	alignment = Alignment(horizontal='center',vertical='center',wrap_text=False)
-	font = Font(name='ËÎÌå',size=20,bold=True)
+	font = Font(name='å®‹ä½“',size=20,bold=True)
 	font1 = Font(bold=True)
 	font2 = Font(bold=False,color='FFFF0000')
 	
 	ws0.insert_rows(1)
-	ws0['A1']= names+' '+week0+'¿Î±í('+str(len_index0)+'¸ö¿Î)'
+	ws0['A1']= names+' '+week0+'è¯¾è¡¨('+str(len_index0)+'ä¸ªè¯¾)'
 	ws0.merge_cells('A1:K1')
 	ws0['A1'].font = font
 	ws0.row_dimensions[1].height = 30
 	
 	for row in ws0.iter_rows(min_row=1,max_row=len_index0+2,min_col=1,max_col=11):
 		for cell in row:
-			if cell.value == datetime.datetime.now().strftime('%Y-%m-%d'):#±êºìÓëµ±Ç°ÈÕÆÚÏàµÈµÄ½á¿ÎÊ±¼ä
+			if cell.value == datetime.datetime.now().strftime('%Y-%m-%d'):#æ ‡çº¢ä¸å½“å‰æ—¥æœŸç›¸ç­‰çš„ç»“è¯¾æ—¶é—´
 				cell.font = font2
 			cell.border = Border(top=thin,left=thin,right=thin,bottom=thin)
 			cell.alignment = alignment
@@ -40,66 +40,66 @@ def cell_style0(ws0,len_index0,week0,names):
 
 def wash_data(filename):
 	wb = Workbook()
-	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,14,17,18,20,21,22,24,29])#¶ÁÈ¡±í
+	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,14,17,18,20,21,22,24,29])#è¯»å–è¡¨
 	
-	weekdays_all = ['ÖÜÎå','ÖÜÁùÉÏÎç','ÖÜÁùÖĞÎç','ÖÜÁùÏÂÎç','ÖÜÁùÍíÉÏ'
-					,'ÖÜÈÕÉÏÎç','ÖÜÈÕÖĞÎç','ÖÜÈÕÏÂÎç','ÖÜÈÕÍíÉÏ','ÖÜ¶ş','ÖÜÈı','ÖÜËÄ']
+	weekdays_all = ['å‘¨äº”','å‘¨å…­ä¸Šåˆ','å‘¨å…­ä¸­åˆ','å‘¨å…­ä¸‹åˆ','å‘¨å…­æ™šä¸Š'
+					,'å‘¨æ—¥ä¸Šåˆ','å‘¨æ—¥ä¸­åˆ','å‘¨æ—¥ä¸‹åˆ','å‘¨æ—¥æ™šä¸Š','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››']
 					
-	weekdays_all2 = ['ÉÏÎç','ÖĞÎç','ÏÂÎç','ÍíÉÏ']	
-	finish_excel = data.loc[2,'½ÌÑ§µã']+ '__'+ data.loc[2,'Ñ§ÆÚ']
-	data.½ÌÊ¦ =  data.½ÌÊ¦.str.replace('[0-9]\d*$','')#É¾µôÀÏÊ¦Ãû³ÆºóµÄÊı×Ö
+	weekdays_all2 = ['ä¸Šåˆ','ä¸­åˆ','ä¸‹åˆ','æ™šä¸Š']	
+	finish_excel = data.loc[2,'æ•™å­¦ç‚¹']+ '__'+ data.loc[2,'å­¦æœŸ']
+	data.æ•™å¸ˆ =  data.æ•™å¸ˆ.str.replace('[0-9]\d*$','')#åˆ æ‰è€å¸ˆåç§°åçš„æ•°å­—
 
-	data_fudao = data.¸¨µ¼ÀÏÊ¦.str.replace('[0-9]\d*$','')#É¾µô¸¨µ¼ÀÏÊ¦Ãû³ÆºóµÄÊı×Ö
-	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','¸¨µ¼:',regex=True)#É¾µôÊı×ÖºóÖ»Ê£Ãû×Ö£¬Ãû×ÖÈ«²¿Ìæ»»³É¸¨µ¼
-	data.¸¨µ¼ÀÏÊ¦ = data_fudao2 + data_fudao #¸¨µ¼+ÀÏÊ¦Ãû×Ö
+	data_fudao = data.è¾…å¯¼è€å¸ˆ.str.replace('[0-9]\d*$','')#åˆ æ‰è¾…å¯¼è€å¸ˆåç§°åçš„æ•°å­—
+	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','è¾…å¯¼:',regex=True)#åˆ æ‰æ•°å­—ååªå‰©åå­—ï¼Œåå­—å…¨éƒ¨æ›¿æ¢æˆè¾…å¯¼
+	data.è¾…å¯¼è€å¸ˆ = data_fudao2 + data_fudao #è¾…å¯¼+è€å¸ˆåå­—
 	
 	
-	data.½ÌÊ¦ = data.½ÌÊ¦.str.cat(data.¸¨µ¼ÀÏÊ¦,join='left',sep=' ')#ÀÏÊ¦Óë¸¨µ¼ÀÏÊ¦ºÏ¶şÎªÒ»
-	data.½ÌÊÒ = data.½ÌÊÒ.str.replace('[(].*?[)]|[¡¾].*?[¡¿]','',regex=True)
-	# ~ data.°à´Î = data.°à´Î.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')
-	data.rename(columns = {'ÒÑ½ÉÈËÊı':'ÈËÊı'},inplace=True)	#'ÒÑÉÏ¿Î´Î':'¿Î´Î',
-	data.sort_values(by='ÉÏ¿ÎÊ±¼ä', axis=0, ascending=True,inplace=True)#ÓÃÉÏ¿ÎÊ±¼äÅÅĞò·½·¨
-	data = data.drop(columns=['¸¨µ¼ÀÏÊ¦','½ÌÑ§µã'],axis=1)
+	data.æ•™å¸ˆ = data.æ•™å¸ˆ.str.cat(data.è¾…å¯¼è€å¸ˆ,join='left',sep=' ')#è€å¸ˆä¸è¾…å¯¼è€å¸ˆåˆäºŒä¸ºä¸€
+	data.æ•™å®¤ = data.æ•™å®¤.str.replace('[(].*?[)]|[ã€].*?[ã€‘]','',regex=True)
+	# ~ data.ç­æ¬¡ = data.ç­æ¬¡.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')
+	data.rename(columns = {'å·²ç¼´äººæ•°':'äººæ•°'},inplace=True)	#'å·²ä¸Šè¯¾æ¬¡':'è¯¾æ¬¡',
+	data.sort_values(by='ä¸Šè¯¾æ—¶é—´', axis=0, ascending=True,inplace=True)#ç”¨ä¸Šè¯¾æ—¶é—´æ’åºæ–¹æ³•
+	data = data.drop(columns=['è¾…å¯¼è€å¸ˆ','æ•™å­¦ç‚¹'],axis=1)
 
 
-	if data.Ñ§ÆÚ.iloc[1] == '´º¼¾°à' or data.Ñ§ÆÚ.iloc[1] == 'Çï¼¾°à':
+	if data.å­¦æœŸ.iloc[1] == 'æ˜¥å­£ç­' or data.å­¦æœŸ.iloc[1] == 'ç§‹å­£ç­':
 		for week in weekdays_all:
-			data_num = data.loc[data.ÉÏ¿ÎÊ±¼ä.str.contains(week)]
-			if week =='ÖÜ¶ş'or week =='ÖÜÈı' or week =='ÖÜËÄ' or week=='ÖÜÎå':
-				data_num.sort_values(by='½ÌÊÒ',axis=0,ascending=True,inplace=True)
+			data_num = data.loc[data.ä¸Šè¯¾æ—¶é—´.str.contains(week)]
+			if week =='å‘¨äºŒ'or week =='å‘¨ä¸‰' or week =='å‘¨å››' or week=='å‘¨äº”':
+				data_num.sort_values(by='æ•™å®¤',axis=0,ascending=True,inplace=True)
 			else:
-				data_num.sort_values(by=['ÉÏ¿ÎÊ±¼ä','½ÌÊÒ'],axis=0,ascending=True,inplace=True)
-			ws = wb.create_sheet(week+'('+str(len(data_num.index))+'¸ö¿Î)',-1)
+				data_num.sort_values(by=['ä¸Šè¯¾æ—¶é—´','æ•™å®¤'],axis=0,ascending=True,inplace=True)
+			ws = wb.create_sheet(week+'('+str(len(data_num.index))+'ä¸ªè¯¾)',-1)
 			for r in dataframe_to_rows(data_num,index=False,header=True):
 				ws.append(r)
 			cell_style0(ws,len(data_num.index),week,finish_excel)
 			
-	elif data.Ñ§ÆÚ.iloc[1] == '¶ÌÆÚ°à' or data.Ñ§ÆÚ.iloc[1] == '»î¶¯Àà' or data.Ñ§ÆÚ.iloc[1] == 'Õï¶ÏÀà':
-		week = data.Ñ§ÆÚ.iloc[1]
+	elif data.å­¦æœŸ.iloc[1] == 'çŸ­æœŸç­' or data.å­¦æœŸ.iloc[1] == 'æ´»åŠ¨ç±»' or data.å­¦æœŸ.iloc[1] == 'è¯Šæ–­ç±»':
+		week = data.å­¦æœŸ.iloc[1]
 		ws = wb.create_sheet(week,-1)
-		data.sort_values(by='½á¿ÎÈÕÆÚ',axis=0,ascending=True, inplace=True)#°´½á¿ÎÈÕÆÚÅÅĞò
+		data.sort_values(by='ç»“è¯¾æ—¥æœŸ',axis=0,ascending=True, inplace=True)#æŒ‰ç»“è¯¾æ—¥æœŸæ’åº
 		for r in dataframe_to_rows(data,index=False, header=True):
 			ws.append(r)
 		cell_style0(ws,len(data.index),week,finish_excel)
 	
-	else:#if data.Ñ§ÆÚ.iloc[1] == 'Êî¼Ù°à' or data.Ñ§ÆÚ.iloc[1] == 'º®¼Ù°à'
-		data['ÉÏ¿ÎÊ±¼ä'] = data['ÉÏ¿ÎÊ±¼ä'].str.replace('Ò»','1')
-		data['ÉÏ¿ÎÊ±¼ä'] = data['ÉÏ¿ÎÊ±¼ä'].str.replace('¶ş','2')
-		data['ÉÏ¿ÎÊ±¼ä'] = data['ÉÏ¿ÎÊ±¼ä'].str.replace('Èı','3')
-		data['ÉÏ¿ÎÊ±¼ä'] = data['ÉÏ¿ÎÊ±¼ä'].str.replace('ËÄ','4')
-		data['ÉÏ¿ÎÊ±¼ä'] = data['ÉÏ¿ÎÊ±¼ä'].str.replace('Áã','0')
+	else:#if data.å­¦æœŸ.iloc[1] == 'æš‘å‡ç­' or data.å­¦æœŸ.iloc[1] == 'å¯’å‡ç­'
+		data['ä¸Šè¯¾æ—¶é—´'] = data['ä¸Šè¯¾æ—¶é—´'].str.replace('ä¸€','1')
+		data['ä¸Šè¯¾æ—¶é—´'] = data['ä¸Šè¯¾æ—¶é—´'].str.replace('äºŒ','2')
+		data['ä¸Šè¯¾æ—¶é—´'] = data['ä¸Šè¯¾æ—¶é—´'].str.replace('ä¸‰','3')
+		data['ä¸Šè¯¾æ—¶é—´'] = data['ä¸Šè¯¾æ—¶é—´'].str.replace('å››','4')
+		data['ä¸Šè¯¾æ—¶é—´'] = data['ä¸Šè¯¾æ—¶é—´'].str.replace('é›¶','0')
 		for week in weekdays_all2:
-			data_num = data.loc[data.ÉÏ¿ÎÊ±¼ä.str.contains(week)]
-			data_num.sort_values(by=['ÉÏ¿ÎÊ±¼ä','½ÌÊÒ'],axis=0,ascending=True,inplace=True)
-			ws = wb.create_sheet(week+'('+str(len(data_num.index))+'¸ö¿Î)',-1)
+			data_num = data.loc[data.ä¸Šè¯¾æ—¶é—´.str.contains(week)]
+			data_num.sort_values(by=['ä¸Šè¯¾æ—¶é—´','æ•™å®¤'],axis=0,ascending=True,inplace=True)
+			ws = wb.create_sheet(week+'('+str(len(data_num.index))+'ä¸ªè¯¾)',-1)
 			for r in dataframe_to_rows(data_num,index=False,header=True):
 				ws.append(r)
 			cell_style0(ws,len(data_num.index),week,finish_excel)
-	finish_excel = finish_excel +'__'+'Ç°Ì¨¿Î±í.xlsx'
+	finish_excel = finish_excel +'__'+'å‰å°è¯¾è¡¨.xlsx'
 	wb.save(finish_excel)
 	return str(finish_excel)
 
-# ~ filename = '´óĞÂ¶ÌÆÚ°à.xlsx'
+# ~ filename = 'å¤§æ–°çŸ­æœŸç­.xlsx'
 # ~ wash_data(filename)
 
 
