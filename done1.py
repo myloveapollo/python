@@ -10,7 +10,7 @@ import done6
 
 class SiteLog(wx.Frame):
 	def __init__(self):
-		wx.Frame.__init__(self,None,title='Excel制作工具>>>徐浩峰:13554941602',size=(450,480))
+		wx.Frame.__init__(self,None,title='Excel制作工具0626>>>徐浩峰:13554941602',size=(450,480))
 		self.Center()
 		self.OpenFile = wx.Button(self,label='打开',pos=(305,5),size=(80,25))
 		self.OpenFile.Bind(wx.EVT_BUTTON,self.OnOpenFile)
