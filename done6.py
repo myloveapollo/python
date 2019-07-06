@@ -1,5 +1,5 @@
-#-*-coding:GBK -*- 
-#ÔËÓª¿¼ÇÚÅÅ°àµ¼Èë±í
+ï»¿#-*-coding:GBK -*- 
+#è¿è¥è€ƒå‹¤æ’ç­å¯¼å…¥è¡¨
 import re
 import numpy as np
 import pandas as pd
@@ -13,13 +13,13 @@ def cell_style(ws,len_index):
 	width_dict={'A':15.13,'B':15.13,'C':19.28,'D':15.13,'E':15.13,'F':15.13}
 	thin = Side(border_style=None,color='00000000')
 	alignment = Alignment(horizontal='center',vertical='center',wrap_text=False)
-	font = Font(name='ËÎÌå',size=11,bold=False)
+	font = Font(name='å®‹ä½“',size=11,bold=False)
 	
 	list_content = ('"06:00,06:30,07:00,07:30,08:00,08:30,09:00,09:30,10:00,10:30,11:00,11:30,'
 					'12:00,12:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30,17:00,17:30,'
 					'18:00,18:30,19:00,19:30,20:00,20:30,21:00,21:30,22:00,22:30,23:00,23:30"')#00:00,00:30,01:00,01:30,02:00,02:30,03:00,03:30,04:00,04:30,05:00,05:30,'
 
-	dv_type = DataValidation(type="list", formula1='"Äê¼Ù,¹¤×÷,ĞİÏ¢,ÈëÀëÖ°È±ÇÚ,ÅàÑµ,²¡¼Ù,Ò½ÁÆÆÚ,ÊÂ¼Ù,»é¼Ù,²ú¼Ù,²ú¼ì,²¸Èé¼Ù,É¥¼Ù"', allow_blank=False)
+	dv_type = DataValidation(type="list", formula1='"å¹´å‡,å·¥ä½œ,ä¼‘æ¯,å…¥ç¦»èŒç¼ºå‹¤,åŸ¹è®­,ç—…å‡,åŒ»ç–—æœŸ,äº‹å‡,å©šå‡,äº§å‡,äº§æ£€,å“ºä¹³å‡,ä¸§å‡"', allow_blank=False)
 	dv_time = DataValidation(type="list", formula1=list_content,operator='equal', allow_blank=True)
 	ws.add_data_validation(dv_type)
 	ws.add_data_validation(dv_time)
@@ -53,45 +53,45 @@ def ceshi(data):
 
 
 def wash_data(filename):
-	names=['¹¤ºÅ','ĞÕÃû','ÖÜÒ»','ÖÜ¶ş','ÖÜÈı','ÖÜËÄ','ÖÜÎå','ÖÜÁù','ÖÜÈÕ']
-	data = pd.read_excel(filename,sheet_name=0,header=None,names=names,usecols=[1,2,3,5,7,9,11,13,15])#¶ÁÈ¡±í,
+	names=['å·¥å·','å§“å','å‘¨ä¸€','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››','å‘¨äº”','å‘¨å…­','å‘¨æ—¥']
+	data = pd.read_excel(filename,sheet_name=0,header=None,names=names,usecols=[1,2,3,5,7,9,11,13,15])#è¯»å–è¡¨,
 
-	data_time = data.iloc[1]#ÌáÈ¡ÈÕÆÚÒÑ±¸ÓÃ,¸ñÊ½ÒªÕı³£µÄ
-	name_a = str(data.iloc[1,2])[6:10]+'ÖÁ'+str(data.iloc[1,8])[6:10]
-	in_excel = name_a + 'ÔËÓª¿¼ÇÚÅÅ°àµ¼Èë.xlsx' #ÃüÃû×îºóÉú³ÉµÄ±í 
+	data_time = data.iloc[1]#æå–æ—¥æœŸå·²å¤‡ç”¨,æ ¼å¼è¦æ­£å¸¸çš„
+	name_a = str(data.iloc[1,2])[6:10]+'è‡³'+str(data.iloc[1,8])[6:10]
+	in_excel = name_a + 'è¿è¥è€ƒå‹¤æ’ç­å¯¼å…¥.xlsx' #å‘½åæœ€åç”Ÿæˆçš„è¡¨ 
 	
 	# ~ data.drop(axis=1,columns=[0],inplace=True)
-	data.drop(axis=0,index=[1,0,2,3,4],inplace=True)#É¾³ıÃ»ÓĞµÄĞĞĞÅÏ¢
-	data.dropna(axis=0,how='all',inplace=True)#É¾³ıÈ«¿ÕµÄĞĞĞÅÏ¢
-	data.replace('OFF','OFF-OFF',regex=True,inplace=True)#OFFÏîµÈÓÚ¿Õ ÕıÔò±í´ïÊ½×Ó£¬²»Çø·Ö´óĞ¡Ğ´
-	data = data.T#µ¹ÖÃ
+	data.drop(axis=0,index=[1,0,2,3,4],inplace=True)#åˆ é™¤æ²¡æœ‰çš„è¡Œä¿¡æ¯
+	data.dropna(axis=0,how='all',inplace=True)#åˆ é™¤å…¨ç©ºçš„è¡Œä¿¡æ¯
+	data.replace('OFF','OFF-OFF',regex=True,inplace=True)#OFFé¡¹ç­‰äºç©º æ­£åˆ™è¡¨è¾¾å¼å­ï¼Œä¸åŒºåˆ†å¤§å°å†™
+	data = data.T#å€’ç½®
 
-	#Æğ²İÒ»¸ö±í
-	data_make = pd.DataFrame(np.full([7*len(data.columns),6],np.nan),columns=['¹¤ºÅ','ĞÕÃû','ÈÕÆÚ(YYYY-MM-DD)','ÀàĞÍ','ÉÏ°àÊ±¼ä','ÏÂ°àÊ±¼ä'])
+	#èµ·è‰ä¸€ä¸ªè¡¨
+	data_make = pd.DataFrame(np.full([7*len(data.columns),6],np.nan),columns=['å·¥å·','å§“å','æ—¥æœŸ(YYYY-MM-DD)','ç±»å‹','ä¸Šç­æ—¶é—´','ä¸‹ç­æ—¶é—´'])
 	
 	data_job_num = []
 	for nam in list(data.iloc[0]):
 		for i in range(1,8):
 			data_job_num.append(nam)
-	data_make['¹¤ºÅ'] = data_job_num
+	data_make['å·¥å·'] = data_job_num
 
-	#»ñÈ¡ĞÕÃû
+	#è·å–å§“å
 	data_col_name = []
 	for nam in list(data.iloc[1]):
 		for i in range(1,8):
 			data_col_name.append(nam)
-	data_make['ĞÕÃû']= pd.Series(data_col_name)#µ¼ÈëĞÕÃû
+	data_make['å§“å']= pd.Series(data_col_name)#å¯¼å…¥å§“å
 
-	#»ñÈ¡Ê±¼ä
-	data.drop(axis=0,index='ĞÕÃû',inplace=True)
-	data.drop(axis=0,index='¹¤ºÅ',inplace=True)
-	data_col_arrivetime = []#ÉÏ°àÊ±¼ä
-	data_col_leavetime = []#ÏÂ°àÊ±¼ä
-	data_type =[]#ÀàĞÍ
+	#è·å–æ—¶é—´
+	data.drop(axis=0,index='å§“å',inplace=True)
+	data.drop(axis=0,index='å·¥å·',inplace=True)
+	data_col_arrivetime = []#ä¸Šç­æ—¶é—´
+	data_col_leavetime = []#ä¸‹ç­æ—¶é—´
+	data_type =[]#ç±»å‹
 
 	for col in list(data.columns):
-		data_split_f = data[col].str.split('-').str[0]#ÉÏ°àÊ±¼äÓÃÇ°ÃæµÄ
-		data_split_s = data[col].str.split('-').str[1]#ÏÂ°àÊ±¼äÓÃºóÃæµÄ
+		data_split_f = data[col].str.split('-').str[0]#ä¸Šç­æ—¶é—´ç”¨å‰é¢çš„
+		data_split_s = data[col].str.split('-').str[1]#ä¸‹ç­æ—¶é—´ç”¨åé¢çš„
 		for f in list(data_split_f):
 			if len(str(f))==4:#len(f) == 4:
 				f = '0'+f
@@ -99,25 +99,25 @@ def wash_data(filename):
 		for s in list(data_split_s):
 			data_col_leavetime.append(s)
 			if s !='OFF':
-				data_type.append('¹¤×÷')
+				data_type.append('å·¥ä½œ')
 			else:
-				data_type.append('ĞİÏ¢')
+				data_type.append('ä¼‘æ¯')
 
-	data_make['ÀàĞÍ'] = data_type#µ¼ÈëÀàĞÍÊı¾İ
-	data_make['ÉÏ°àÊ±¼ä'] = data_col_arrivetime#µ¼ÈëÉÏ°àÊ±¼ä
-	data_make['ÏÂ°àÊ±¼ä'] = data_col_leavetime#µ¼ÈëÏÂ°àÊ±¼ä
+	data_make['ç±»å‹'] = data_type#å¯¼å…¥ç±»å‹æ•°æ®
+	data_make['ä¸Šç­æ—¶é—´'] = data_col_arrivetime#å¯¼å…¥ä¸Šç­æ—¶é—´
+	data_make['ä¸‹ç­æ—¶é—´'] = data_col_leavetime#å¯¼å…¥ä¸‹ç­æ—¶é—´
 	data_make.replace('OFF|off','',regex=True,inplace=True)
 	
-	# ~ #»ñÈ¡'ÈÕÆÚ(YYYY-MM-DD)'--------·½·¨1
-	# ~ data_time = list(map(lambda x: '2019-'+x, data_time))#ÓÃ¹«Ê½ÔÚÃ¿¸ö×Ö·ûÇ°¼Ó2019-
+	# ~ #è·å–'æ—¥æœŸ(YYYY-MM-DD)'--------æ–¹æ³•1
+	# ~ data_time = list(map(lambda x: '2019-'+x, data_time))#ç”¨å…¬å¼åœ¨æ¯ä¸ªå­—ç¬¦å‰åŠ 2019-
 	
 	data_yyyy= []
 	for data_t in range(0,len(list(data.columns))):
 		for data_t in list(data_time[2:]):
-			data_yyyy.append(str(data_t)[:-9])#°´Ã¿¸öcol£¬datatime´ÎÌí¼Ó
-	data_make['ÈÕÆÚ(YYYY-MM-DD)'] = data_yyyy #¸³Öµ¸øcolÈÕÆÚ
+			data_yyyy.append(str(data_t)[:-9])#æŒ‰æ¯ä¸ªcolï¼Œdatatimeæ¬¡æ·»åŠ 
+	data_make['æ—¥æœŸ(YYYY-MM-DD)'] = data_yyyy #èµ‹å€¼ç»™colæ—¥æœŸ
 	
-	#ÓÃopenpyxlÉèÖÃ¸ñÊ½
+	#ç”¨openpyxlè®¾ç½®æ ¼å¼
 	wb = Workbook()
 	ws = wb.create_sheet('Sheet1',-1)
 	for r in dataframe_to_rows(data_make,index=False,header=True):
@@ -126,7 +126,7 @@ def wash_data(filename):
 	wb.save(in_excel)
 	return in_excel
 	
-# ~ filename = '»Æ½õÈÙ.xlsx'
+# ~ filename = 'é»„é”¦è£.xlsx'
 # ~ wash_data(filename)
 
 
