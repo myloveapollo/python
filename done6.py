@@ -17,14 +17,16 @@ def cell_style(ws,len_index):
 	
 	list_content = ('"06:00,06:30,07:00,07:30,08:00,08:30,09:00,09:30,10:00,10:30,11:00,11:30,'
 					'12:00,12:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30,17:00,17:30,'
-					'18:00,18:30,19:00,19:30,20:00,20:30,21:00,21:30,22:00,22:30,23:00,23:30"')
+					'18:00,18:30,19:00,19:30,20:00,20:30,21:00,21:30,22:00,22:30,23:00,23:30"')#00:00,00:30,01:00,01:30,02:00,02:30,03:00,03:30,04:00,04:30,05:00,05:30,'
 
 	dv_type = DataValidation(type="list", formula1='"年假,工作,休息,入离职缺勤,培训,病假,医疗期,事假,婚假,产假,产检,哺乳假,丧假"', allow_blank=False)
 	dv_time = DataValidation(type="list", formula1=list_content,operator='equal', allow_blank=True)
 	ws.add_data_validation(dv_type)
 	ws.add_data_validation(dv_time)
-	dv_type.add('D2:D64')
-	dv_time.add('E2:F64')
+	type_index = 'D2:D'+str(len_index+1)
+	time_index = 'E2:F'+str(len_index+1)
+	dv_type.add(type_index)
+	dv_time.add(time_index)
 	
 	for row in ws.iter_rows(min_row=2,max_row=len_index+1,min_col=3,max_col=3):
 		for cell in row:
@@ -91,11 +93,13 @@ def wash_data(filename):
 		data_split_f = data[col].str.split('-').str[0]#上班时间用前面的
 		data_split_s = data[col].str.split('-').str[1]#下班时间用后面的
 		for f in list(data_split_f):
+			if len(str(f))==4:#len(f) == 4:
+				f = '0'+f
 			data_col_arrivetime.append(f)
 		for s in list(data_split_s):
 			data_col_leavetime.append(s)
 			if s !='OFF':
-				data_type.append('上班')
+				data_type.append('工作')
 			else:
 				data_type.append('休息')
 
@@ -122,5 +126,7 @@ def wash_data(filename):
 	wb.save(in_excel)
 	return in_excel
 	
+# ~ filename = '黄锦荣.xlsx'
+# ~ wash_data(filename)
 
 
