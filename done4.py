@@ -50,7 +50,7 @@ def cell_style(ws,len_index,names,names2):
 def wash_data(filename):
 
 	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,17,18,22,24,29,31])#读取表
-
+	finish_excel = data.loc[2,'教学点']+ '__'+ data.loc[2,'学期']
 	data.rename(columns = {'学期':'班级类型'},inplace=True)
 	data.班次 = data.班次.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]|双师','')
 	
@@ -64,7 +64,7 @@ def wash_data(filename):
 	data.班级类型 = data['班级类型'].str.cat(data['班次'],join='left',sep=' ')
 	data.班次 = data.班次.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')
 	
-	finish_excel = data.loc[2,'教学点']
+	
 	data = data.drop(columns=['年级','班次','教师','教室','教学点','上课时间','总课次'])
 	banshu  = data.班级类型.value_counts()
 	banshu = pd.DataFrame(banshu)
@@ -88,6 +88,9 @@ def wash_data(filename):
 	wb.save(finish_excel)
 	return str(finish_excel)
 
+
+# ~ filename = '大新春季.xlsx'
+# ~ wash_data(filename)
 
 
 
