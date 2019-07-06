@@ -1,5 +1,5 @@
-#-*-coding:GBK -*- 
-#½²ÒåËæ²ÄĞèÇóÁ¿Í³¼Æ±í
+ï»¿#-*-coding:GBK -*- 
+#è®²ä¹‰éšæéœ€æ±‚é‡ç»Ÿè®¡è¡¨
 import numpy as np
 import pandas as pd
 from openpyxl import Workbook
@@ -13,16 +13,16 @@ def cell_style(ws,len_index,names,names2):
 	thin = Side(border_style='thin',color='00000000')
 	alignment = Alignment(horizontal='center',vertical='center',wrap_text=False)
 	alignment1 = Alignment(horizontal='center',vertical='center',wrap_text=True)
-	font = Font(name='ËÎÌå',size=20,bold=True)
+	font = Font(name='å®‹ä½“',size=20,bold=True)
 	font1 = Font(bold=True)
 	font2 = Font(bold=True,color='FFFF0000')
 
-	ws['A1'] =str(names)+'>>'+names2+'½Ì²ÄĞèÇóÁ¿Í³¼Æ'+'('+str(len_index)+'ÖÖ°àĞÍ)'
-	ws['A2'] = 'Ğ£ÇøËùÓĞ'+names2+'°à¼¶ÀàĞÍ'
-	ws['B2'] = 'ËùÓĞ'+names2+'¿ª°à×ÜÊıÁ¿'
-	ws['C2'] = '½ØÖ¹Ä¿Ç°ÒÑ½É·ÑÈËÊı'
-	ws['D2'] = names2+'°àĞÍÈ«Âú½Ì²ÄĞèÇóÁ¿(¸Ã¿ÆÄ¿ËùÓĞ°àµÄÏŞ¶îÏà¼Ó)'
-	ws['E2'] = '¶àÓà½Ì²Ä(DÁĞ¼õÈ¥CÁĞ)'
+	ws['A1'] =str(names)+'>>'+names2+'æ•™æéœ€æ±‚é‡ç»Ÿè®¡'+'('+str(len_index)+'ç§ç­å‹)'
+	ws['A2'] = 'æ ¡åŒºæ‰€æœ‰'+names2+'ç­çº§ç±»å‹'
+	ws['B2'] = 'æ‰€æœ‰'+names2+'å¼€ç­æ€»æ•°é‡'
+	ws['C2'] = 'æˆªæ­¢ç›®å‰å·²ç¼´è´¹äººæ•°'
+	ws['D2'] = names2+'ç­å‹å…¨æ»¡æ•™æéœ€æ±‚é‡(è¯¥ç§‘ç›®æ‰€æœ‰ç­çš„é™é¢ç›¸åŠ )'
+	ws['E2'] = 'å¤šä½™æ•™æ(Dåˆ—å‡å»Cåˆ—)'
 	ws.merge_cells('A1:E1')
 
 	ws['A1'].font = font
@@ -49,33 +49,33 @@ def cell_style(ws,len_index,names,names2):
 
 def wash_data(filename):
 
-	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,17,18,22,24,29,31])#¶ÁÈ¡±í
-	finish_excel = data.loc[2,'½ÌÑ§µã']+ '__'+ data.loc[2,'Ñ§ÆÚ']
-	data.rename(columns = {'Ñ§ÆÚ':'°à¼¶ÀàĞÍ'},inplace=True)
-	data.°à´Î = data.°à´Î.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]|Ë«Ê¦','')
+	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,17,18,22,24,29,31])#è¯»å–è¡¨
+	finish_excel = data.loc[2,'æ•™å­¦ç‚¹']+ '__'+ data.loc[2,'å­¦æœŸ']
+	data.rename(columns = {'å­¦æœŸ':'ç­çº§ç±»å‹'},inplace=True)
+	data.ç­æ¬¡ = data.ç­æ¬¡.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]|åŒå¸ˆ','')
 	
-	class_dic = {'Ğ¡Ñ§Ò»':'<1>Ò»','Ğ¡Ñ§¶ş':'<2>¶ş','Ğ¡Ñ§Èı':'<3>Èı','Ğ¡Ñ§ËÄ':'<4>ËÄ','Ğ¡Ñ§Îå':'<5>Îå','Ğ¡Ñ§Áù':'<6>Áù',
-				'³õÖĞÒ»':'<7>³õÒ»','³õÖĞ¶ş':'<8>³õ¶ş','³õÖĞÈı':'<9>³õÈı'}
+	class_dic = {'å°å­¦ä¸€':'<1>ä¸€','å°å­¦äºŒ':'<2>äºŒ','å°å­¦ä¸‰':'<3>ä¸‰','å°å­¦å››':'<4>å››','å°å­¦äº”':'<5>äº”','å°å­¦å…­':'<6>å…­',
+				'åˆä¸­ä¸€':'<7>åˆä¸€','åˆä¸­äºŒ':'<8>åˆäºŒ','åˆä¸­ä¸‰':'<9>åˆä¸‰'}
 	for k,v in class_dic.items():
-		data.Äê¼¶ = data['Äê¼¶'].str.replace(k,v)
+		data.å¹´çº§ = data['å¹´çº§'].str.replace(k,v)
 		
-	data.°à¼¶ÀàĞÍ = data['°à¼¶ÀàĞÍ'].str.cat(data['Äê¼¶'],join='left',sep=' ')
-	data.°à¼¶ÀàĞÍ = data['°à¼¶ÀàĞÍ'].str.cat(data['Ñ§¿Æ'],join='left',sep=' ')
-	data.°à¼¶ÀàĞÍ = data['°à¼¶ÀàĞÍ'].str.cat(data['°à´Î'],join='left',sep=' ')
-	data.°à´Î = data.°à´Î.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')
+	data.ç­çº§ç±»å‹ = data['ç­çº§ç±»å‹'].str.cat(data['å¹´çº§'],join='left',sep=' ')
+	data.ç­çº§ç±»å‹ = data['ç­çº§ç±»å‹'].str.cat(data['å­¦ç§‘'],join='left',sep=' ')
+	data.ç­çº§ç±»å‹ = data['ç­çº§ç±»å‹'].str.cat(data['ç­æ¬¡'],join='left',sep=' ')
+	data.ç­æ¬¡ = data.ç­æ¬¡.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')
 	
 	
-	data = data.drop(columns=['Äê¼¶','°à´Î','½ÌÊ¦','½ÌÊÒ','½ÌÑ§µã','ÉÏ¿ÎÊ±¼ä','×Ü¿Î´Î'])
-	banshu  = data.°à¼¶ÀàĞÍ.value_counts()
+	data = data.drop(columns=['å¹´çº§','ç­æ¬¡','æ•™å¸ˆ','æ•™å®¤','æ•™å­¦ç‚¹','ä¸Šè¯¾æ—¶é—´','æ€»è¯¾æ¬¡'])
+	banshu  = data.ç­çº§ç±»å‹.value_counts()
 	banshu = pd.DataFrame(banshu)
 
-	tongji = data.groupby('°à¼¶ÀàĞÍ').sum()
+	tongji = data.groupby('ç­çº§ç±»å‹').sum()
 
 	frames = [banshu,tongji]
 	result = pd.concat(frames,axis=1,sort=False)
 
 	
-	course = ['ÊıÑ§','Ó¢Óï','ÓïÎÄ','ÎïÀí','»¯Ñ§','¿ÆÑ§']
+	course = ['æ•°å­¦','è‹±è¯­','è¯­æ–‡','ç‰©ç†','åŒ–å­¦','ç§‘å­¦']
 	wb = Workbook()
 	for c in course:
 		ws = wb.create_sheet(c,-1)
@@ -84,12 +84,12 @@ def wash_data(filename):
 		for r in dataframe_to_rows(result1,index=True,header=True):
 			ws.append(r)
 		cell_style(ws,len(result1.index),finish_excel,c)
-	finish_excel = finish_excel+'__'+'Ëæ²ÄĞèÇóÍ³¼Æ±í.xlsx'
+	finish_excel = finish_excel+'__'+'éšæéœ€æ±‚ç»Ÿè®¡è¡¨.xlsx'
 	wb.save(finish_excel)
 	return str(finish_excel)
 
 
-# ~ filename = '´óĞÂ´º¼¾.xlsx'
+# ~ filename = 'å¤§æ–°æ˜¥å­£.xlsx'
 # ~ wash_data(filename)
 
 
