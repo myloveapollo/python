@@ -1,4 +1,4 @@
-#-*-coding:GBK -*- 
+ï»¿#-*-coding:GBK -*- 
 import wx
 import os
 import xlrd
@@ -10,25 +10,25 @@ import done6
 
 class SiteLog(wx.Frame):
 	def __init__(self):
-		wx.Frame.__init__(self,None,title='ExcelÖÆ×÷¹¤¾ß0626>>>ĞìºÆ·å:13554941602',size=(450,480))
+		wx.Frame.__init__(self,None,title='Excelåˆ¶ä½œå·¥å…·0626>>>å¾æµ©å³°:13554941602',size=(450,480))
 		self.Center()
-		self.OpenFile = wx.Button(self,label='´ò¿ª',pos=(305,5),size=(80,25))
+		self.OpenFile = wx.Button(self,label='æ‰“å¼€',pos=(305,5),size=(80,25))
 		self.OpenFile.Bind(wx.EVT_BUTTON,self.OnOpenFile)
-		self.MakeExcel1 = wx.Button(self,label='Ç°Ì¨¿Î±íÄ¿Â¼',pos=(10,40),size=(120,25))
+		self.MakeExcel1 = wx.Button(self,label='å‰å°è¯¾è¡¨ç›®å½•',pos=(10,40),size=(120,25))
 		self.MakeExcel1.Bind(wx.EVT_BUTTON,self.ReadFile)
-		self.MakeExcel2 = wx.Button(self,label='ÖÆ×÷Ëæ²Ä·¢·ÅÌõ',pos=(140,40),size=(120,25))
+		self.MakeExcel2 = wx.Button(self,label='åˆ¶ä½œéšæå‘æ”¾æ¡',pos=(140,40),size=(120,25))
 		self.MakeExcel2.Bind(wx.EVT_BUTTON,self.ReadFileA)
-		self.MakeExcel3 = wx.Button(self,label='Ëæ²ÄĞèÇóÍ³¼Æ±í',pos=(270,40),size=(120,25))
+		self.MakeExcel3 = wx.Button(self,label='éšæéœ€æ±‚ç»Ÿè®¡è¡¨',pos=(270,40),size=(120,25))
 		self.MakeExcel3.Bind(wx.EVT_BUTTON,self.ReadFileB)
-		self.MakeExcel4 = wx.Button(self,label='A5½ÌÊÒÃÅÇ°¿Î±í',pos=(10,75),size=(120,25))
+		self.MakeExcel4 = wx.Button(self,label='A5æ•™å®¤é—¨å‰è¯¾è¡¨',pos=(10,75),size=(120,25))
 		self.MakeExcel4.Bind(wx.EVT_BUTTON,self.ReadFileC)
-		self.MakeExcel5 = wx.Button(self,label='A4½ÌÊÒÃÅÇ°¿Î±í',pos=(140,75),size=(120,25))
+		self.MakeExcel5 = wx.Button(self,label='A4æ•™å®¤é—¨å‰è¯¾è¡¨',pos=(140,75),size=(120,25))
 		self.MakeExcel5.Bind(wx.EVT_BUTTON,self.ReadFileD)
-		self.MakeExcel6 = wx.Button(self,label='ÅÅ°à¿¼ÇÚ±íÖÆ×÷',pos=(270,75),size=(120,25))
+		self.MakeExcel6 = wx.Button(self,label='æ’ç­è€ƒå‹¤è¡¨åˆ¶ä½œ',pos=(270,75),size=(120,25))
 		self.MakeExcel6.Bind(wx.EVT_BUTTON,self.ReadFileE)
 		
 		self.filesFilter = "Excel files(*.xlsx)|*.xlsx" #|All files (*.*)|*.*
-		self.fileDialog = wx.FileDialog(self, message ="Ñ¡Ôñµ¥¸öÎÄ¼ş", wildcard = self.filesFilter, style = wx.FD_OPEN)
+		self.fileDialog = wx.FileDialog(self, message ="é€‰æ‹©å•ä¸ªæ–‡ä»¶", wildcard = self.filesFilter, style = wx.FD_OPEN)
 		self.FileName = wx.TextCtrl(self, pos=(5,5),size=(290,25),style=wx.TE_READONLY|wx.TE_RICH2)
 		self.FileContent = wx.TextCtrl(self,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 
@@ -40,84 +40,84 @@ class SiteLog(wx.Frame):
 		self.FileName.AppendText("%s" % self.fileDialog.GetPath())
 		# ~ wx.TextCtrl(self, value=str(self.fileDialog.GetPath()), pos=(5,5), size=(290,25)) 
 
-	def ReadFile(self, event):#Ç°Ì¨±í
+	def ReadFile(self, event):#å‰å°è¡¨
 		try:
 			filename = self.fileDialog.GetPath()
 			names = done2.wash_data(filename)
-			message1 = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd()) +'\\' +names
+			message1 = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd()) +'\\' +names
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Ã»ÓĞ´ò¿ªÎÄ¼ş£¡Çëµã»÷´ò¿ª£¡'
+			message1 = 'æ²¡æœ‰æ‰“å¼€æ–‡ä»¶ï¼è¯·ç‚¹å‡»æ‰“å¼€ï¼'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏ"Ç°Ì¨±í¿Î±í"ÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆ"å‰å°è¡¨è¯¾è¡¨"è¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		
-	def ReadFileA(self, event):#ÖÆ×÷½²ÒåÊÒËæ²Ä·¢·ÅÌõ
+	def ReadFileA(self, event):#åˆ¶ä½œè®²ä¹‰å®¤éšæå‘æ”¾æ¡
 		try:
 			filename = self.fileDialog.GetPath()
 			names = done3.wash_data(filename)
-			message2 = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd())+'\\' +names
+			message2 = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd())+'\\' +names
 			wx.TextCtrl(self, value=message2,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Çëµã»÷´ò¿ªÎÄ¼ş£¡'
+			message1 = 'è¯·ç‚¹å‡»æ‰“å¼€æ–‡ä»¶ï¼'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏ¡°ÖÆ×÷Ëæ²Ä·¢·ÅÌõ¡±ÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆâ€œåˆ¶ä½œéšæå‘æ”¾æ¡â€è¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		
-	def ReadFileB(self, event):#½²ÒåËæ²ÄĞèÇóÁ¿Í³¼Æ±í
+	def ReadFileB(self, event):#è®²ä¹‰éšæéœ€æ±‚é‡ç»Ÿè®¡è¡¨
 		try:
 			filename = self.fileDialog.GetPath()
 			names = done4.wash_data(filename)
-			message = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd())+'\\' +names
+			message = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd())+'\\' +names
 			wx.TextCtrl(self, value=message,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Ã»ÓĞÎÄ¼ş±»´ò¿ª'
+			message1 = 'æ²¡æœ‰æ–‡ä»¶è¢«æ‰“å¼€'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏ¡°Ëæ²ÄĞèÇóÍ³¼Æ±í¡±ÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆâ€œéšæéœ€æ±‚ç»Ÿè®¡è¡¨â€è¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 			
-	def ReadFileC(self, event):#½ÌÊÒÇ°¿Î±íA5
+	def ReadFileC(self, event):#æ•™å®¤å‰è¯¾è¡¨A5
 		try:
 			filename = self.fileDialog.GetPath()
 			sizeA = 'A5'
 			names = done5.final_fuc(filename,sizeA)
-			message = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd())+'\\'+'A5'+names
+			message = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd())+'\\'+'A5'+names
 			wx.TextCtrl(self, value=message,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Ã»ÓĞÎÄ¼ş±»´ò¿ª'
+			message1 = 'æ²¡æœ‰æ–‡ä»¶è¢«æ‰“å¼€'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏ¡°½ÌÊÒÇ°¿Î±í¡±ÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆâ€œæ•™å®¤å‰è¯¾è¡¨â€è¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))		
 
-	def ReadFileD(self, event):#½ÌÊÒÇ°¿Î±íA4
+	def ReadFileD(self, event):#æ•™å®¤å‰è¯¾è¡¨A4
 		try:
 			filename = self.fileDialog.GetPath()
 			sizeA = 'A4'
 			names = done5.final_fuc(filename,sizeA)
-			message = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd())+'\\' +'A4'+names
+			message = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd())+'\\' +'A4'+names
 			wx.TextCtrl(self, value=message,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Ã»ÓĞÎÄ¼ş±»´ò¿ª'
+			message1 = 'æ²¡æœ‰æ–‡ä»¶è¢«æ‰“å¼€'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏ¡°½ÌÊÒÇ°¿Î±í¡±ÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆâ€œæ•™å®¤å‰è¯¾è¡¨â€è¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		
-	def ReadFileE(self, event):#ÅÅ°à¿¼ÇÚ±íÖÆ×÷
+	def ReadFileE(self, event):#æ’ç­è€ƒå‹¤è¡¨åˆ¶ä½œ
 		try:
 			filename = self.fileDialog.GetPath()
 			names = done6.wash_data(filename)
-			message = 'ÖÆ×÷³É¹¦£¡>>>Î»ÖÃ£º'+str(os.getcwd())+'\\' +names
+			message = 'åˆ¶ä½œæˆåŠŸï¼>>>ä½ç½®ï¼š'+str(os.getcwd())+'\\' +names
 			wx.TextCtrl(self, value=message,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except FileNotFoundError:
-			message1 = 'Ã»ÓĞÎÄ¼ş±»´ò¿ª'
+			message1 = 'æ²¡æœ‰æ–‡ä»¶è¢«æ‰“å¼€'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		except xlrd.biffh.XLRDError:
-			message1 = '´ò¿ªµÄExcel±í²»·ûºÏÒªÇó'
+			message1 = 'æ‰“å¼€çš„Excelè¡¨ä¸ç¬¦åˆè¦æ±‚'
 			wx.TextCtrl(self, value=message1,pos=(5,110),size=(430,480),style=(wx.TE_MULTILINE))
 		
 		
