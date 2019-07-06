@@ -9,7 +9,7 @@ pd.options.mode.chained_assignment = None
 
 
 def cell_style(ws,len_index):
-	width_dict = {'B':30,'C':6,'D':12,'E':12.00,'F':12.00,'G':6,'H':6}
+	width_dict = {'B':30,'C':6,'D':14.56,'E':12.00,'F':12.00,'G':6,'H':6}
 	font = Font(name='宋体',size=20,bold=True)
 	thin = Side(border_style='thin',color='00000000')
 	alignment = Alignment(horizontal='center',vertical='center',wrap_text=True)
@@ -33,7 +33,7 @@ def wash_data(filename):
 					
 	weekdays_all2 = ['上午','中午','下午','晚上']	
 	
-	finish_excel = data.loc[2,'教学点']
+	finish_excel = data.loc[2,'教学点']+ '__'+ data.loc[2,'学期']
 	
 	data_fudao = data.辅导老师.str.replace('[0-9]\d*$','')#删掉辅导老师名称后的数字
 	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','辅导',regex=True)#删掉数字后只剩名字，名字全部替换成辅导
