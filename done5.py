@@ -1,5 +1,5 @@
-#-*-coding:GBK -*- 
-#½ÌÊÒÇ°¿Î±í
+ï»¿#-*-coding:GBK -*- 
+#æ•™å®¤å‰è¯¾è¡¨
 import numpy as np
 import pandas as pd
 import os
@@ -10,12 +10,12 @@ pd.options.mode.chained_assignment = None
 
 def cell_style_A5(ws,len_index,sizeA):
 	width_dict_A5 = {'A':16,'B':16,'C':16,'D':16,'E':16,'F':16}
-	font_A5 = Font(name='Î¢ÈíÑÅºÚ',size=8,bold=False)
+	font_A5 = Font(name='å¾®è½¯é›…é»‘',size=8,bold=False)
 	
 	width_dict_A4 = {'A':21.18,'B':21.18,'C':21.18,'D':21.18,'E':21.18,'F':21.18}
-	font_A4 = Font(name='Î¢ÈíÑÅºÚ',size=11,bold=False)
-	alignment = Alignment(horizontal='center',vertical='center',wrap_text=True)#wrap_text×Ô¶¯»»ĞĞ
-	#ÉèÖÃcell¸ñÊ½
+	font_A4 = Font(name='å¾®è½¯é›…é»‘',size=11,bold=False)
+	alignment = Alignment(horizontal='center',vertical='center',wrap_text=True)#wrap_textè‡ªåŠ¨æ¢è¡Œ
+	#è®¾ç½®cellæ ¼å¼
 	if sizeA == 'A5':
 		font = font_A5
 		width_dict = width_dict_A5
@@ -29,26 +29,26 @@ def cell_style_A5(ws,len_index,sizeA):
 		for cell in row:
 			cell.font=font
 			cell.alignment = alignment
-	#ÉèÖÃÁĞ¿í
+	#è®¾ç½®åˆ—å®½
 	for k,v in width_dict.items():
 		ws.column_dimensions[k].width = v
-	#ÉèÖÃĞĞ¸ß
+	#è®¾ç½®è¡Œé«˜
 	for i in range(len_index+1):
 		ws.row_dimensions[i].height = height
 
 
-#¸ù¾İÊ±¼äÖÖÀà×öÒ»¸öĞÂindex
+#æ ¹æ®æ—¶é—´ç§ç±»åšä¸€ä¸ªæ–°index
 def time_sort_index(time_col):
 	time_col = time_col.str.replace('4*[\u4e00-\u9fa5]|[:].*$','') 
 	time_index = sorted(list(set(time_col)))
 	return time_index
 
-#´¦Àí×Ö·û´®
+#å¤„ç†å­—ç¬¦ä¸²
 def handle_str(teacher,kind_class, class_room):
-	teacher = teacher.str.replace('[0-9]\d*$','')#É¾µô½ÌÊ¦ºóµÄÊı×Ö
-	# ~ kind_class = kind_class.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')#É¾µôÅàÑµ°àÈı¸ö×Ö
-	kind_class = kind_class.str.replace('·Ö¼¶ÔÄ¶Á','·Ö¼¶ÔÄ¶ÁË«Ê¦')#É¾µôÅàÑµ°àÈı¸ö×Ö
-	class_room = class_room.str.replace('4*[\u4e00-\u9fa5]|[(].*?[)]|[¡¾].*?[¡¿]','')#Ö»±£Áô½ÌÊÒºÅ
+	teacher = teacher.str.replace('[0-9]\d*$','')#åˆ æ‰æ•™å¸ˆåçš„æ•°å­—
+	# ~ kind_class = kind_class.str.replace('^[\u4e00-\u9fa5][\u4e00-\u9fa5][\u4e00-\u9fa5]','')#åˆ æ‰åŸ¹è®­ç­ä¸‰ä¸ªå­—
+	kind_class = kind_class.str.replace('åˆ†çº§é˜…è¯»','åˆ†çº§é˜…è¯»åŒå¸ˆ')#åˆ æ‰åŸ¹è®­ç­ä¸‰ä¸ªå­—
+	class_room = class_room.str.replace('4*[\u4e00-\u9fa5]|[(].*?[)]|[ã€].*?[ã€‘]','')#åªä¿ç•™æ•™å®¤å·
 	return teacher, kind_class, class_room
 
 def ceshi(data):
@@ -58,35 +58,35 @@ def ceshi(data):
 
 
 def wash_data(filename):
-	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,14,17,18,22])#¶ÁÈ¡±í
+	data = pd.read_excel(filename, sheet_name='Sheet0',usecols=[4,6,7,9,11,14,17,18,22])#è¯»å–è¡¨
 	
-	timelist = time_sort_index(data['ÉÏ¿ÎÊ±¼ä'])#ÉÏ¿ÎÊ±¼äÎªindex
+	timelist = time_sort_index(data['ä¸Šè¯¾æ—¶é—´'])#ä¸Šè¯¾æ—¶é—´ä¸ºindex
 	choose = data.iloc[1,0]
 	
-	data_fudao = data.¸¨µ¼ÀÏÊ¦.str.replace('[0-9]\d*$','')#É¾µô¸¨µ¼ÀÏÊ¦Ãû³ÆºóµÄÊı×Ö
-	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','¸¨µ¼:',regex=True)#É¾µôÊı×ÖºóÖ»Ê£Ãû×Ö£¬Ãû×ÖÈ«²¿Ìæ»»³É¸¨µ¼
-	data.¸¨µ¼ÀÏÊ¦ = data_fudao2 + data_fudao #¸¨µ¼+ÀÏÊ¦Ãû×Ö
+	data_fudao = data.è¾…å¯¼è€å¸ˆ.str.replace('[0-9]\d*$','')#åˆ æ‰è¾…å¯¼è€å¸ˆåç§°åçš„æ•°å­—
+	data_fudao2 = data_fudao.str.replace('.*[\u4e00-\u9fa5]','è¾…å¯¼:',regex=True)#åˆ æ‰æ•°å­—ååªå‰©åå­—ï¼Œåå­—å…¨éƒ¨æ›¿æ¢æˆè¾…å¯¼
+	data.è¾…å¯¼è€å¸ˆ = data_fudao2 + data_fudao #è¾…å¯¼+è€å¸ˆåå­—
 	
-	finish_excel = '¹ı¶È±í(Ã»ÓÃ).xlsx'#»ñÈ¡±£´æµÄ¹ı¶ÉÎÄ¼şÃû #finish_excel = data.loc[2,'½ÌÑ§µã']+'__'+'¹ı¶È±í(Ã»ÓÃ).xlsx'
-	in_excel = data.loc[2,'½ÌÑ§µã']+'__'+data.loc[2,'Ñ§ÆÚ']+'__'+'½ÌÊÒÃÅÇ°¿Î±í.xlsx'#»ñÈ¡×îÖÕÎÄ¼şÃû£¬²¢´«µİ³öÈ¥
+	finish_excel = 'è¿‡åº¦è¡¨(æ²¡ç”¨).xlsx'#è·å–ä¿å­˜çš„è¿‡æ¸¡æ–‡ä»¶å #finish_excel = data.loc[2,'æ•™å­¦ç‚¹']+'__'+'è¿‡åº¦è¡¨(æ²¡ç”¨).xlsx'
+	in_excel = data.loc[2,'æ•™å­¦ç‚¹']+'__'+data.loc[2,'å­¦æœŸ']+'__'+'æ•™å®¤é—¨å‰è¯¾è¡¨.xlsx'#è·å–æœ€ç»ˆæ–‡ä»¶åï¼Œå¹¶ä¼ é€’å‡ºå»
 	
-	data.½ÌÊ¦,data.°à´Î,data.½ÌÊÒ = handle_str(data.½ÌÊ¦, data.°à´Î, data.½ÌÊÒ)#´¦ÀíÁĞÀï×Ö·û
-	classroomlist = sorted(list(set(data.½ÌÊÒ)))#½ÌÊÒºÅÎªsheet_name
+	data.æ•™å¸ˆ,data.ç­æ¬¡,data.æ•™å®¤ = handle_str(data.æ•™å¸ˆ, data.ç­æ¬¡, data.æ•™å®¤)#å¤„ç†åˆ—é‡Œå­—ç¬¦
+	classroomlist = sorted(list(set(data.æ•™å®¤)))#æ•™å®¤å·ä¸ºsheet_name
 	classroomlist = [x for x in classroomlist if x !='']
 	
-	data2 = data.½ÌÊÒ+data.Äê¼¶+data.Ñ§¿Æ+'\n'+data.°à´Î+'\n'+data.½ÌÊ¦+' '+data.¸¨µ¼ÀÏÊ¦ +'\n'+data.ÉÏ¿ÎÊ±¼ä
+	data2 = data.æ•™å®¤+data.å¹´çº§+data.å­¦ç§‘+'\n'+data.ç­æ¬¡+'\n'+data.æ•™å¸ˆ+' '+data.è¾…å¯¼è€å¸ˆ +'\n'+data.ä¸Šè¯¾æ—¶é—´
 
 	writer = pd.ExcelWriter(finish_excel)
 	num = []
 	for i in range(1,len(timelist)+1):
 		num.append(np.nan)	
-	datamake_chunqiu = pd.DataFrame({'ÖÜ¶ş':num,'ÖÜÈı':num,'ÖÜËÄ':num,'ÖÜÎå':num,'ÖÜÁù':num,'ÖÜÈÕ':num},
+	datamake_chunqiu = pd.DataFrame({'å‘¨äºŒ':num,'å‘¨ä¸‰':num,'å‘¨å››':num,'å‘¨äº”':num,'å‘¨å…­':num,'å‘¨æ—¥':num},
 							index=timelist)
 							
-	datamake_hanshu = pd.DataFrame({'ÁãÆÚ':num,'Ò»ÆÚ':num,'¶şÆÚ':num,'ÈıÆÚ':num,'ËÄÆÚ':num},
+	datamake_hanshu = pd.DataFrame({'é›¶æœŸ':num,'ä¸€æœŸ':num,'äºŒæœŸ':num,'ä¸‰æœŸ':num,'å››æœŸ':num},
 							index=timelist)
 	
-	if choose == '´º¼¾°à' or choose == 'Çï¼¾°à':
+	if choose == 'æ˜¥å­£ç­' or choose == 'ç§‹å­£ç­':
 		datamake = datamake_chunqiu
 	else:
 		datamake = datamake_hanshu
@@ -117,12 +117,12 @@ def wash_data2(put_excel,in_excel,classroomlist,sizeA):
 		data = pd.read_excel(put_excel,sheet_name=cla,index_col=0)
 		data = wash_data2_hander1(data)
 		if len(data.index)>5:
-			ws = wb.create_sheet(cla+'(Ğè¼õĞĞ)',-1)
+			ws = wb.create_sheet(cla+'(éœ€å‡è¡Œ)',-1)
 			for r in dataframe_to_rows(data,index=False,header=False):
 				ws.append(r)
 			cell_style_A5(ws,len(data.index),sizeA)
 		elif len(data.index)<5:
-			ws = wb.create_sheet(cla+'(ĞèÔöĞĞ)',-1)
+			ws = wb.create_sheet(cla+'(éœ€å¢è¡Œ)',-1)
 			for r in dataframe_to_rows(data,index=False,header=False):
 				ws.append(r)
 			cell_style_A5(ws,len(data.index),sizeA)
@@ -137,7 +137,7 @@ def wash_data2(put_excel,in_excel,classroomlist,sizeA):
 def final_fuc(filename, sizeA):
 	classroomlist,put_excel,in_excel = wash_data(filename)
 	wash_data2(put_excel,in_excel,classroomlist,sizeA)
-	os.remove('¹ı¶È±í(Ã»ÓÃ).xlsx')
+	os.remove('è¿‡åº¦è¡¨(æ²¡ç”¨).xlsx')
 	return in_excel
 
 
