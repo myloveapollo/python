@@ -1,4 +1,4 @@
-﻿#-*-coding:GBK -*- 
+﻿
 #更改2019年7月6日
 import wx
 import os
