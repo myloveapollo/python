@@ -1,4 +1,4 @@
-﻿#-*-coding:GBK -*- 
+﻿
 #运营考勤排班导入表
 import re
 import numpy as np
@@ -126,7 +126,7 @@ def wash_data(filename):
 	wb.save(in_excel)
 	return in_excel
 	
-# ~ filename = '黄锦荣.xlsx'
-# ~ wash_data(filename)
+# filename = r'F:/py/我的python代码/python/7.8-7.14排班.xlsx'
+# wash_data(filename)
 
 
